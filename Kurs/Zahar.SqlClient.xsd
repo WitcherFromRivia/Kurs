@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="Zahar.SqlClient.Mapping" 
+           xmlns:z="Zahar.SqlClient.Mapping">
+  <xs:simpleType name="SysName">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^\S+$" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Procedures">
+          <xs:annotation>
+            <xs:documentation>List of stored procedures selected for generating typed ADO.NET classes.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Add" type="z:Procedure">
+                <xs:annotation>
+                  <xs:documentation>Adds a database stored procedure selector</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Procedure">
+    <xs:attribute name="Schema" type="z:SysName" use="required">
+      <xs:annotation>
+        <xs:documentation>Stored procedures database schema name (like e.g. dbo)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="z:SysName" use="required">
+      <xs:annotation>
+        <xs:documentation>Stored procedure name</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IgnoreQueryResult" type="xs:boolean">
+      <xs:annotation><xs:documentation>When True, causes the processor to skip result schema evaluation.</xs:documentation></xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
